@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=58.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{ cookiecutter.project_name }}"
+description = "{{ cookiecutter.description }}"
+readme = "README.md"
+requires-python = "{{ cookiecutter.python_version }}"
+authors = [{ name = "{{ cookiecutter.author_name }}", email = "{{ cookiecutter.author_email }}" }]
+keywords = []
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Environment :: Console",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+urls = { code = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_name }}" }
+dependencies = ["python-dotenv"]
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = { file = "src/{{ cookiecutter.package_name }}/VERSION.txt" }
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "flake8", "mypy"]
+
+[tool.setuptools]
+zip-safe = true
+include-package-data = true
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "tests"]
+known_first_party = ["{{ cookiecutter.package_name }}"]
+
+[tool.mypy]
+disallow_untyped_calls = true
+disallow_untyped_imports = true
+disallow_untyped_defs = true
+disallow_any_generics = true
+no_implicit_optional = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+check_untyped_defs = true
+show_error_codes = true
+namespace_packages = true
+explicit_package_bases = true
+
+[tool.ruff]
+select = ["B", "C90", "E", "F", "W"]
+ignore = ["E501"]
+line-length = 88
+
